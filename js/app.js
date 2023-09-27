@@ -1,6 +1,7 @@
 const criptomonedasSelect = document.querySelector('#criptomonedas');
 const monedaSelect = document.querySelector('#moneda');
 const formulario = document.querySelector('#formulario');
+const resultado = document.querySelector('#resultado');
 
 const objBusqueda = {
     moneda: '',
@@ -58,8 +59,8 @@ function submitFormulario(e) {
     }
 
     //Consultar la API con los resultados
+    consultarAPI();
 
-    
 }
 
 function mostrarAlerta(mensaje) {
@@ -75,4 +76,18 @@ function mostrarAlerta(mensaje) {
         },3000)
     }
     
+}
+
+function consultarAPI() {
+    const { moneda, criptomoneda } = objBusqueda;
+
+    const url = `https://min-api-v2.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`
+
+    fetch(url)
+        .then(respuesta => respuesta.json())
+        .then(cotizacion => mostrarCotizacionHTML(cotizacion.DISPLAY[criptomoneda][moneda]))
+}
+
+function mostrarCotizacionHTML(cotizacion) {
+     console.log(cotizacion)
 }
