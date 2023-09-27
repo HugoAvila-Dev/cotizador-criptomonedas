@@ -50,14 +50,29 @@ function submitFormulario(e) {
     e.preventDefault();
 
     //Validar
-    const { moneda, criptomonedas } = objBusqueda;
+    const { moneda, criptomoneda } = objBusqueda;
 
-    if(moneda === '' || criptomonedas === '') {
+    if(moneda === '' || criptomoneda === '') {
         mostrarAlerta('Ambos campos son obligatorios');
         return;
     }
+
+    //Consultar la API con los resultados
+
+    
 }
 
 function mostrarAlerta(mensaje) {
-    console.log(mensaje)
+    const exiteError = document.querySelector('.error');
+    if (!exiteError) {
+        const divMensaje = document.createElement('DIV');
+        divMensaje.classList.add('error')
+        divMensaje.textContent = mensaje;
+        formulario.appendChild(divMensaje);
+    
+        setTimeout(() => {
+            divMensaje.remove();
+        },3000)
+    }
+    
 }
